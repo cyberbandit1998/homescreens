@@ -1,0 +1,150 @@
+{
+  "id": "family-wall-calendar",
+  "name": "Family Wall Calendar",
+  "version": "1.0.0",
+  "description": "A bright, touch-friendly family calendar and chore chart: Day, Week, Month and Schedule views, color-coded family members, tap-to-open event details, and a tap-to-tick chore list.",
+  "author": "cyberbandit1998",
+  "license": "MIT",
+  "minAppVersion": "1.7.1",
+  "moduleType": "family-wall-calendar",
+  "category": "Personal",
+  "icon": "CalendarDays",
+
+  "dataRequirements": ["calendar"],
+  "permissions": ["network"],
+
+  "defaultConfig": {
+    "defaultView": "week",
+    "theme": "auto",
+    "accentColor": "#2f6fed",
+    "startDay": "sunday",
+    "showWeekends": true,
+    "dayStartHour": 6,
+    "dayEndHour": 22,
+    "showPeopleBar": true,
+    "showChores": true,
+    "choresTappable": true,
+    "returnToTodaySeconds": 120,
+    "maxEventsPerDay": 4
+  },
+
+  "defaultSize": { "w": 1040, "h": 760 },
+
+  "defaultStyle": {
+    "padding": 20,
+    "backgroundColor": "#ffffff",
+    "textColor": "#1c2430",
+    "borderRadius": 28,
+    "fontSize": 16
+  },
+
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "defaultView": {
+        "type": "string",
+        "title": "Starting view",
+        "description": "The view shown at start-up and after the wall has been idle.",
+        "enum": ["week", "day", "month", "schedule"],
+        "enumLabels": ["Week", "Day", "Month", "Schedule"],
+        "ui:widget": "select",
+        "ui:group": "Calendar"
+      },
+      "startDay": {
+        "type": "string",
+        "title": "Week starts on",
+        "enum": ["sunday", "monday"],
+        "enumLabels": ["Sunday", "Monday"],
+        "ui:widget": "select",
+        "ui:group": "Calendar"
+      },
+      "showWeekends": {
+        "type": "boolean",
+        "title": "Show weekends",
+        "description": "Turn off for a Monday to Friday week view.",
+        "ui:widget": "toggle",
+        "ui:group": "Calendar"
+      },
+      "maxEventsPerDay": {
+        "type": "number",
+        "title": "Events per day in Month view",
+        "description": "Extra events collapse into a '+ more' line.",
+        "minimum": 1,
+        "maximum": 8,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Calendar"
+      },
+      "dayStartHour": {
+        "type": "number",
+        "title": "Day view starts at (hour)",
+        "minimum": 0,
+        "maximum": 12,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Day view"
+      },
+      "dayEndHour": {
+        "type": "number",
+        "title": "Day view ends at (hour)",
+        "minimum": 13,
+        "maximum": 24,
+        "ui:widget": "slider",
+        "ui:step": 1,
+        "ui:group": "Day view"
+      },
+      "showPeopleBar": {
+        "type": "boolean",
+        "title": "Show family filter",
+        "description": "A row of family members (or calendars) you can tap to filter the events.",
+        "ui:widget": "toggle",
+        "ui:group": "Family"
+      },
+      "showChores": {
+        "type": "boolean",
+        "title": "Show Chores tab",
+        "description": "Reads today's chores from Home Screens' chore chart.",
+        "ui:widget": "toggle",
+        "ui:group": "Chores"
+      },
+      "choresTappable": {
+        "type": "boolean",
+        "title": "Tap to tick off chores",
+        "description": "Turn off to make the chore list read-only.",
+        "ui:widget": "toggle",
+        "ui:group": "Chores",
+        "ui:showWhen": { "field": "showChores", "equals": true }
+      },
+      "theme": {
+        "type": "string",
+        "title": "Theme",
+        "description": "Auto picks light or dark from the module's background color.",
+        "enum": ["auto", "light", "dark"],
+        "enumLabels": ["Auto", "Light", "Dark"],
+        "ui:widget": "select",
+        "ui:group": "Look"
+      },
+      "accentColor": {
+        "type": "string",
+        "title": "Accent color",
+        "description": "Used for today, the selected tab and buttons.",
+        "ui:widget": "color",
+        "ui:group": "Look"
+      },
+      "returnToTodaySeconds": {
+        "type": "number",
+        "title": "Return to today after (seconds)",
+        "description": "After this much time without a touch, jump back to today and the starting view. 0 keeps whatever was last opened.",
+        "minimum": 0,
+        "maximum": 600,
+        "ui:widget": "slider",
+        "ui:step": 15,
+        "ui:group": "Wall behavior"
+      }
+    }
+  },
+
+  "exports": {
+    "component": "default"
+  }
+}

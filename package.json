@@ -1,0 +1,27 @@
+{
+  "name": "family-wall-calendar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A bright, touch-friendly family calendar and chore chart plugin for Home Screens",
+  "license": "MIT",
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm run test && npm run build",
+    "package": "node scripts/package.mjs",
+    "harness": "node scripts/build-harness.mjs",
+    "browser-check": "npm run build && npm run harness && node scripts/browser-check.mjs",
+    "shots": "npm run build && npm run harness && node scripts/shots.mjs"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "axe-core": "^4.14.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typescript": "^5.7.0",
+    "vite": "^6.0.0",
+    "vitest": "^4.1.10"
+  }
+}
