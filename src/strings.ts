@@ -34,6 +34,9 @@ export const S = {
   setupBody:
     'Open Settings, then Calendar, in the Home Screens editor and add a Google calendar, an iCloud calendar or an iCal link. Events will appear here.',
   sourcesFailing: (names: string) => `Not updating: ${names}`,
+  andMore: (n: number) => (n === 1 ? ' and 1 other calendar' : ` and ${n} other calendars`),
+  oneCalendarFailing: "A calendar isn't updating",
+  manyCalendarsFailing: (n: number) => `${n} calendars aren't updating`,
   birthday: 'Birthday',
   holiday: 'Holiday',
   // Chores

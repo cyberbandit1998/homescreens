@@ -45,6 +45,7 @@ const scenarios = [
   { name: 'filtered-mia', click: 'chip:Mia' },
   { name: 'setup', q: 'setup=1' },
   { name: 'unreachable', q: 'fail=1' },
+  { name: 'source-unnamed', q: 'sourcebad=3&cfg.defaultView=schedule' },
   { name: 'monday-24h', q: 'cfg.startDay=monday&tf=24h' },
 ];
 

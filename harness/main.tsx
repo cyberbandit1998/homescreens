@@ -44,7 +44,14 @@ window.fetch = async (input: RequestInfo | URL, init?: RequestInit) => {
       const en = Date.parse(e.allDay ? `${e.end}T00:00:00Z` : e.end);
       return en > min && s < max;
     });
-    const sourceStatus = q.get('sourcebad') === '1' ? [{ id: 'g-mia', name: "Mia's calendar", ok: false, error: 'x' }] : [];
+    // 1: named. 2: id only, but the calendar's events are present (name can be looked up).
+    // 3: a long hash id nobody can name, as a real hub sometimes sends.
+    const HASH = '1d1a1e606c47d4ff13e908f50a530fdef2d205021d6d27c94c67d50b54263362';
+    const bad = q.get('sourcebad');
+    const sourceStatus =
+      bad === '1' ? [{ id: 'g-mia', name: "Mia's calendar", ok: false, error: 'x' }] :
+      bad === '2' ? [{ id: 'g-mia', ok: false }] :
+      bad === '3' ? [{ id: HASH, ok: false, error: 'Could not reach the link' }] : [];
     return json({ events, sourceStatus });
   }
   if (url.pathname === '/api/chores/today') return json(choreState);

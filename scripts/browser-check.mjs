@@ -246,6 +246,21 @@ await check('a calendar that stops updating is flagged in words', async () => {
   await context.close();
 });
 
+await check('a failing calendar known only by its id gets its name from its events', async () => {
+  const { page, context } = await open('sourcebad=2');
+  await page.getByText("Not updating: Mia's calendar").waitFor();
+  await context.close();
+});
+
+await check('a failing calendar nobody can name never shows a raw id', async () => {
+  const { page, context } = await open('sourcebad=3');
+  await page.getByText(/A calendar isn.t updating/).waitFor();
+  const text = await page.locator('.fwc').innerText();
+  ok(!text.includes('1d1a1e606c47'), 'no hash shown');
+  ok(text.includes('Could not reach the link'), "the hub's own reason is shown");
+  await context.close();
+});
+
 await check('other languages and a 24-hour clock', async () => {
   const { page, context } = await open('locale=de-DE&tf=24h&cfg.defaultView=schedule');
   const text = await page.locator('.fwc').innerText();

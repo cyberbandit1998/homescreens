@@ -71,7 +71,7 @@ Then add this entry to the `plugins` list in `data/plugins/installed.json`
 ```json
 {
   "id": "family-wall-calendar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "installedAt": "2026-11-02T00:00:00.000Z",
   "enabled": true,
   "moduleType": "family-wall-calendar"
@@ -162,7 +162,7 @@ All text lives in `src/strings.ts`. Sizes are in `em`, so the host's Text size s
 ## What has and has not been tested
 
 **Tested (automated):** 94 unit tests (time zones, all-day and overnight events, overlap layout, colors and contrast,
-config handling, chore parsing, rendering of every view and state). 26 behavior checks in real Chromium,
+config handling, chore parsing, rendering of every view and state). 28 behavior checks in real Chromium,
 running in a UTC browser to mimic a stock Raspberry Pi: navigation, family filter, event sheet and focus,
 chore ticking (including a failed save), idle reset, empty and error states, other languages, and an
 axe accessibility scan (WCAG 2.x A and AA, 2.2) of every view in both themes.

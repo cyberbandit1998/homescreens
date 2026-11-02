@@ -186,6 +186,21 @@ describe('states', () => {
     expect(render()).toContain("Not updating: Mia&#x27;s calendar");
   });
 
+  it('never prints a raw calendar id when the hub names a failing calendar only by its hash', () => {
+    const hash = '1d1a1e606c47d4ff13e908f50a530fdef2d205021d6d27c94c67d50b54263362';
+    // The hub names no calendar; no event carries that id, so nothing can be looked up.
+    installSdk({ '/api/calendar': { events: sampleEvents(TODAY), sourceStatus: [{ id: hash, ok: false, error: 'Could not reach the link' }] } });
+    const html = render();
+    expect(html).not.toContain(hash);
+    expect(html).toContain("A calendar isn&#x27;t updating");
+    expect(html).toContain('Could not reach the link');
+  });
+
+  it('finds the failing calendar’s name from the events it supplied', () => {
+    installSdk({ '/api/calendar': { events: sampleEvents(TODAY), sourceStatus: [{ id: 'g-mia', ok: false }] } });
+    expect(render()).toContain("Not updating: Mia&#x27;s calendar");
+  });
+
   it('asks the host for a window around the visible month, not just the next week', () => {
     const calls = installSdk(calendarRoute());
     render({ defaultView: 'month' });

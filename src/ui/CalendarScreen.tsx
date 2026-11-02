@@ -6,6 +6,7 @@ import { addDays, type WeekStart, type Ymd } from '../lib/dates';
 import { bucketByDay, normalizeAll } from '../lib/events';
 import { fetchWindow, visibleRange } from '../lib/labels';
 import { buildLegend, filterEvents, type Legend } from '../lib/people';
+import { failingMessage, sourceNames } from '../lib/status';
 import type { Person } from '../types';
 import { Icon, Skeleton, StateCard, type ViewCtx } from './common';
 import { DayView } from './DayView';
@@ -79,7 +80,10 @@ export function CalendarScreen({ view, anchor, weekStart, tz, people, selected, 
   }
 
   const ctx = buildCtx(legend);
-  const failing = source.status.filter((s) => !s.ok);
+  const failingText = failingMessage(
+    source.status.filter((s) => !s.ok),
+    sourceNames(normalized),
+  );
 
   return (
     <>
@@ -88,12 +92,10 @@ export function CalendarScreen({ view, anchor, weekStart, tz, people, selected, 
       {view === 'day' && <DayView ctx={ctx} day={anchor} bucket={buckets.get(anchor)} />}
       {view === 'month' && <MonthView ctx={ctx} anchor={anchor} buckets={buckets} />}
       {view === 'schedule' && <ScheduleView ctx={ctx} anchor={anchor} buckets={buckets} />}
-      {(failing.length > 0 || error) && (
+      {(failingText || error) && (
         <p className="fwc-banner" role="status">
           <Icon.Alert size="1.1em" />
-          {failing.length > 0
-            ? S.sourcesFailing(failing.map((f) => f.name || f.id).join(', '))
-            : S.loadFailed}
+          {failingText ?? S.loadFailed}
         </p>
       )}
     </>
